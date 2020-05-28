@@ -1,0 +1,20 @@
+* {
+    box-sizing: border-box;
+}
+.grid {
+    display: flex;
+    flex-wrap: wrap;
+    height: 312px;
+    width: 416px;
+}
+
+
+.grid > img {
+    border: 2px #ff0000 solid;
+    cursor: url('images/game-cursor.png') , auto;
+    /* margin: 1px; */
+}
+
+h1 {
+    cursor: url("images/sad.png"), auto;
+}
