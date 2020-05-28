@@ -100,22 +100,23 @@ document.addEventListener('DOMContentLoaded', function () {
         let selectedSecond = cardsChosenId[1];
         if (cardsChosen[0] === cardsChosen[1]) {
             alert("You found a match!!!!");
-            allCards[selectedFirst].setAttribute('src' , 'images/blank.png' )
+            allCards[selectedFirst].setAttribute('src', 'images/blank.png')
             allCards[selectedSecond].setAttribute('src', 'images/blank.png')
-            cardsWon.push( cardsChosen )
+            cardsWon.push(cardsChosen)
         } else {
             // restore back card
-            allCards[selectedFirst].setAttribute('src' , 'images/back-card.jpg' )
+            allCards[selectedFirst].setAttribute('src', 'images/back-card.jpg')
             allCards[selectedSecond].setAttribute('src', 'images/back-card.jpg')
         }
         // clear selected for next try
-        cardsChosen = [] 
+        cardsChosen = []
         cardsChosenId = []
 
         counter.textContent = cardsWon.length;
 
         if (cardsWon.length === allCards.length / 2) {
-            SpeechRecognitionResult.textContent = "Great!!! you found them all...."
+            // SpeechRecognitionResult.textContent = "Great!!! you found them all...."
+            alert("Great!!! you found them all....")
         }
 
     }
