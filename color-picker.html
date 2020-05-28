@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pick a Color</title>
+    <style>
+        /* * {  */
+        /* outline: 1px orange solid; */
+        /* } */
+        body {
+            margin: 0;
+            display: flex;
+        }
+
+        #color-panel {
+            width: 400px;
+            height: 400px;
+            border: 4px orange solid;
+            border-radius: 50%;
+            cursor: pointer;
+            /* outline-offset: 3px; */
+        }
+
+        input[type='range'] {
+            width: 100%;
+        }
+
+        input[type='number'] {
+            width: 100%;
+        }
+
+        .sliders {
+            box-sizing: border-box;
+            width: 400px;
+            border: 2px solid olive;
+            border-radius: 15px;
+            margin-top: 15px;
+            padding: 10px;
+            /* transform: rotate(-90deg);; */
+        }
+
+        #right,
+        #left {
+            margin: 25px;
+        }
+
+        #palate>div {
+            position: relative;
+            box-sizing: border-box;
+            width: 97px;
+            height: 100px;
+            border: 1px solid black;
+            margin: 2px;
+        }
+
+        #palate>div>span {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            ;
+
+        }
+
+        #palate {
+            /* height: 400px; */
+            width: 700px;
+            display: flex;
+            flex-wrap: wrap;
+            /* overflow: auto; */
+        }
+    </style>
+</head>
+
+<body>
+    <div id="left">
+        <div id="color-panel" title="Click to select the color"></div>
+        <div class="sliders">
+            <input type="range" id="red" min="0" max="255" title="R from RGBA"><br>
+            <input type="range" id="green" min="0" max="255" title="G from RGBA"><br>
+            <input type="range" id="blue" min="0" max="255" title="B from RGBA"><br>
+            <input type="range" id="alpha" min="0" max="1" step="0.1" title="Alpha from RGBA">
+
+            <!--  RGBA -->
+            <!-- <label for="red">RED: </label>
+           <input type="number" id="red" min="0" max="255" title="R from RGBA"><br>
+           <label for="green">Green: </label>
+            <input type="number" id="green" min="0" max="255" title="G from RGBA"><br>
+            <label for="blue">Blue: </label>        
+            <input type="number" id="blue" min="0" max="255" title="B from RGBA"><br>
+            <label for="alpha">Alpha: </label>
+            <input type="number" id="alpha" min="0" max="1" step="0.1" title="Alpha from RGBA"> -->
+        </div>
+    </div>
+    <div id="right">
+        <div id="palate"></div>
+    </div>
+
+    <script>
+        let sliders = document.getElementsByClassName('sliders')[0];
+        let colorPanel = document.getElementById('color-panel');
+
+
+        colorPanel.onclick = function (e) {
+            // build color item
+            // add to right panel
+            let selectedColor = e.target.style.backgroundColor;
+            let selectedOpacity = e.target.style.opacity;
+            let colorItem = document.createElement('div');
+            colorItem.style.backgroundColor = selectedColor;
+            colorItem.style.opacity = selectedOpacity;
+            colorItem.title = selectedColor + " opacity: " + selectedOpacity;
+            colorItem.innerHTML = `<span>${convertToHexColor(selectedColor,selectedOpacity)}</span>`;
+            document.getElementById('palate').appendChild(colorItem);
+        }
+
+
+        function convertToHexColor(color, opacity) {
+            let start = color.indexOf("(") + 1
+            let end = color.indexOf(")");
+            let colorItems = color.slice(start, end)
+            let hex = "#" +  colorItems
+                              .split(",")
+                              .map(item => (item | 0).toString(16).padStart(2, "0"))
+                              .join('')
+            return hex.slice(0,8) + "<br>Alpha: " +  opacity;
+        }
+
+
+        sliders.addEventListener('input', setColor)
+        let selectedColor = { red: 0, green: 0, blue: 0, alpha: 1 }
+
+        function setColor(e) {
+            // console.log(e)
+            // return;
+            selectedColor[e.target.id] = e.target.valueAsNumber;
+            // var x = `rgba(${selectedColor.red}, ${} , ${} , ${})`
+            rgbaColor = `rgb(${selectedColor.red} , ${selectedColor.green} , ${selectedColor.blue})`
+            //               background-color
+            colorPanel.style.backgroundColor = rgbaColor;
+            //               opacity
+            colorPanel.style.opacity = selectedColor.alpha;
+            //   e.target.title = e.target.title.split('-')[0] + "-" + e.target.value;
+        }
+    </script>
+
+</body>
+
+</html>
+<!-- https://cssgenerator.org/rgba-and-hex-color-generator.html -->
+<!-- https://www.youtube.com/watch?v=oCLpLWcX2cg -->
+<!-- https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range -->
+<!-- cuount down -->
+<!-- https://www.youtube.com/watch?v=X_NJutFBbp4 -->
