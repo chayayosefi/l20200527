@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text"><button>render</button><button>text</button>
+    <hr>
+    <div id="panel">
+    </div>
+    <script>
+        document.querySelectorAll('button')[0].onclick = function() {
+            let input = document.querySelector('input');
+            let panel = document.querySelector('#panel');
+
+            // panel.innerText = input.value
+            panel.innerHTML = input.value
+
+            // panel.textContent = input.value
+        }
+        document.querySelectorAll('button')[1].onclick = function() {
+            let input = document.querySelector('input');
+            let panel = document.querySelector('#panel');
+
+            panel.innerText = input.value
+            // panel.innerHTML = input.value
+
+            // panel.textContent = input.value
+        }
+    </script>
+</body>
+</html>

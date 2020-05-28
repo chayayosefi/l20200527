@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .the-form {
+            display: table;
+        }
+
+        .form-group {
+            display: table-row;
+        }
+
+        .tcell {
+            display: table-cell;
+        }
+
+        h1 {
+            display: table-caption;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="the-form">
+        <h1>Memeber Card</h1>
+        <div class="form-group">
+            <label class="tcell" for="memberid">Member ID:</label>
+            <input class="tcell" type="number" id="memberid">
+        </div>
+        <div class="form-group">
+            <label class="tcell" for="membername">Member Name:</label>
+            <input class="tcell" type="text" id="membername">
+        </div>
+        <div class="form-group">
+            <button class="tcell" id="add">Add</button>
+        </div>
+    </div>
+    <hr>
+    <section id="main">
+        <header>
+            <h3>Memeber List</h3>
+        </header>
+        <div id="panel">
+        </div>
+        </div>
+        <script src="Member.js"></script>
+        <script>
+            let btn = document.querySelector('#add')
+            let Members = [];
+            // members
+            // -----------------
+            // property - value
+            // method   - function
+            // event    -
+            btn.onclick = function (e) {
+                let ido = document.querySelector('#memberid')
+                let nameo = document.querySelector('#membername')
+                
+                member = new Member(ido.value , nameo.value)
+                Members.push(member);
+                showMembers(member)
+                // JavaScript Object Notation
+                localStorage.setItem("all", JSON.stringify(Members));
+            }
+
+            function showMembers(member) {
+                //   let html = `<div>${member.memberid} - ${member.membername}</div>`;
+                let html = member.toHTML();
+                document.querySelector('#panel').innerHTML += html  + "";
+            }
+
+            window.onload = function (e) {
+                //   debugger;
+                let temp = localStorage.getItem("all");
+                if (!temp) {
+                    return;
+                }
+                let tempMembers = JSON.parse(temp);
+                Members = []
+                for (let i = 0; i < tempMembers.length; i++) {
+                    let mem = new Member(tempMembers[i].id , tempMembers[i].name);
+                    Members.push(mem)
+                    //   Members[i].toHTML = function () {
+                    //       console.log(this)
+                    //       return `<div>${this.memberid} - ${this.membername}</div>`;
+                    //   }
+                    showMembers(Members[i])
+                }
+            }
+
+
+
+
+        </script>
+</body>
+
+</html>
