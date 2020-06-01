@@ -6,9 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pick a Color</title>
     <style>
-        /* * {  */
-        /* outline: 1px orange solid; */
-        /* } */
+        * {
+            outline: 1px orange solid;
+        }
+
         body {
             margin: 0;
             display: flex;
@@ -49,7 +50,7 @@
         #palate>div {
             position: relative;
             box-sizing: border-box;
-            width: 97px;
+            width: 95px;
             height: 100px;
             border: 1px solid black;
             margin: 2px;
@@ -60,8 +61,6 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            ;
-
         }
 
         #palate {
@@ -106,13 +105,13 @@
         colorPanel.onclick = function (e) {
             // build color item
             // add to right panel
-            let selectedColor = e.target.style.backgroundColor;
+            let selectedColor = e.target.style.backgroundColor;  // background-color
             let selectedOpacity = e.target.style.opacity;
             let colorItem = document.createElement('div');
             colorItem.style.backgroundColor = selectedColor;
             colorItem.style.opacity = selectedOpacity;
             colorItem.title = selectedColor + " opacity: " + selectedOpacity;
-            colorItem.innerHTML = `<span>${convertToHexColor(selectedColor,selectedOpacity)}</span>`;
+            colorItem.innerHTML = `<span>${convertToHexColor(selectedColor, selectedOpacity)}</span>`;
             document.getElementById('palate').appendChild(colorItem);
         }
 
@@ -121,11 +120,11 @@
             let start = color.indexOf("(") + 1
             let end = color.indexOf(")");
             let colorItems = color.slice(start, end)
-            let hex = "#" +  colorItems
-                              .split(",")
-                              .map(item => (item | 0).toString(16).padStart(2, "0"))
-                              .join('')
-            return hex.slice(0,8) + "<br>Alpha: " +  opacity;
+            let hex = "#" + colorItems
+                .split(",")
+                .map(item => (item | 0).toString(16).padStart(2, "0"))
+                .join('')
+            return hex.slice(0, 8) + "<br>Alpha: " + opacity;
         }
 
 
