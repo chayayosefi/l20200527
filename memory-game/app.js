@@ -56,9 +56,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ]
 
     // shuffle deck 
-    cards.sort(function (a, b) {
-        return Math.random() - 0.5;
-    });
+    cards.sort( (a, b) => Math.random() - 0.5);
     //console.log(cards)
 
     // create the board
@@ -118,11 +116,5 @@ document.addEventListener('DOMContentLoaded', function () {
             // SpeechRecognitionResult.textContent = "Great!!! you found them all...."
             alert("Great!!! you found them all....")
         }
-
     }
-
-
-
-
-
 })
